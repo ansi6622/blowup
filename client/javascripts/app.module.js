@@ -3,10 +3,11 @@
 
   var dependencies = [
     'ui.router',
-    'app.services'
+    'app.services',
+    'ng-animate'
   ];
 
-  angular.module('myApp', dependencies)
+  angular.module('myApp.blowup', dependencies)
     .config(setupRoutes);
 
   setupRoutes.$inject = [
@@ -21,10 +22,10 @@
 
     $stateProvider
       .state('app', {
-          url: "/app",
+          url: "/",
           template: "<app></app>",
           resolve: {
-              function currentUser($http) {
+              function currentUser($http){
 
                   var config = {
                       headers: {
@@ -53,7 +54,7 @@
         }
       })
       .state('home', {
-          url: '/',
+          url: '/home',
           views: {
               'header': {
                 templateUrl: 'javascripts/partials/header.html',

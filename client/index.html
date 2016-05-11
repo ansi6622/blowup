@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-<html ng-app="app.blowup">
+<html ng-app="myApp.blowup">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="bower_components/skeleton/css/skeleton.css">
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
     <title>Blowup</title>
+    <base href="/" />
+    <script src="bower_components/angular/angular.js"></script>
+      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="bower_components/angular-animate/angular-animate.js"></script>
+      <script src="bower_components/angular-resource/angular-resource.js"></script>
+      <script src="javascripts/app.module.js"></script>
+      <script src="javascripts/controllers/layout.controller.js"></script>
+      <script src="javascripts/layouts/layout.directive.html"></script>
   </head>
   <body>
 <h2>herro world</h2>
-<a href="/api/blowup">Server</a>
+{{ 2 + 3 }}
+<div ui-view="login"></div>
+<ui-view></ui-view>
   </body>
 </html>
