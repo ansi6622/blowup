@@ -2,9 +2,9 @@
   'use strict';
 
   var dependencies = [
-    'ui.router',
-    'app.services',
-    'ng-animate'
+    'ui.router'
+    // 'app.services',
+    // 'ng-animate'
   ];
 
   angular.module('myApp.blowup', dependencies)
@@ -13,10 +13,9 @@
   setupRoutes.$inject = [
     '$stateProvider',
     '$urlRouterProvider',
-    '$locationProvider'
-  ];
+    '$locationProvider'  ];
 
-  function setupRoutes($stateProvider, $urlRouterProvider, $locationProvider){
+  function setupRoutes($stateProvider, $urlRouterProvider, $locationProvider, $http){
     // $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise("/");
 
@@ -25,8 +24,11 @@
           url: "/",
           template: "<app></app>",
           resolve: {
-              function currentUser($http){
-
+    //         ['myResolvingService', function(resolver) {
+    //       resolver.myValue = 'Foo';
+    //       return 'Foo';
+    //                       }]
+              currentUser: function(){
                   var config = {
                       headers: {
                           Authorization: "bearer" + (localStorage.getItem('token') || '')
@@ -40,12 +42,15 @@
       })
       .state('login', {
         url: "/login",
-        template: `<form ng-submit="login()">
-        <input type="text" ng-model="email">
+        template: `<form ng-submit="login(loggy)">
+        <input type="text" ng-model="loggy.email">
+        <input type="text" ng-model="loggy.password">
+        <input type="submit" ng-model="loggy">
         </form>`,
         controller: function($scope, $http){
           $scope.login =function () {
-            $http.post('http://localhost:3000/api/blowup/login', {email: $scope.email})
+            $http.post('http://localhost:3000/api/blowup/login', {Authorization: $scope.loggy})
+            //LOOK HERE TO CODE MOAR
             .then(function(response){
               localStorage.setItem('token', response.data.token)
               $state.go('app')
