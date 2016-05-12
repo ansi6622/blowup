@@ -2,24 +2,40 @@ var express = require('express');
 var router = express.Router();
 var knex = require('knex')(require('../knexfile')[process.env.NODE_ENV || 'development']);
 
+ function Posts(posts) {
+  return knex('posts')
+};
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.json({ title: 'Express' });
-});
+router.post('/me', function(req, res, next) {
+    if(req.headers.authorization === "null"){
+      console.log(req.headers);
+      res.json({header: req.headers});
+    } else if(req.headers.authorization){
+      res.json({secret:req.headers.authorization, header: req.headers})
+    } else{
+      res.json({fucked:"You has no chance"})
+    }
+  });
 
 router.get('/list', function(req, res, next) {
-  knex('musicals').then(function (musicals) {
-      res.json(musicals);
-    })});
+  console.log('meow');
+  Posts().then(function(posts){
+    console.log(posts);
+    res.json(posts);
+  })
+  });
 
 router.post('/create', function(req, res, next) {
     var data = {
-      name: req.body.name,
+      title: req.body.title,
+      body: req.body.body,
+      user_id: req.body.user_id,
       created_at: new Date(),
       updated_at: new Date(),
     }
-    knex('musicals').insert(data).returning('*').then(function (musicals) {
-      res.json(musicals[0]);
+    knex('posts').insert(data).returning('*').then(function (posts) {
+      res.json(posts[0]);
     })
   });
 
