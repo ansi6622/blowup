@@ -2,14 +2,14 @@
   'use strict';
 
   angular.module('myApp.blowup')
-    .directive('app', appDirective);
+    .directive('myApp.blowup', appDirective);
 
   function appDirective () {
     return {
       restrict: 'E',
-      templateUrl: '/javascripts/layouts/layout.directive.html',
+      templateUrl: '/javascripts/layout/layout.directive.html',
       controller: function () {
-        console.log("I was called");
+        console.log("Look me I be was called");
       }
     }
   }

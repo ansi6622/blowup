@@ -1,0 +1,90 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">IMDBClone</a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a ng-click="vs.TogglePostForm = !vs.TogglePostForm"><i class="fa fa-plus"></i> New Movie </a>
+                </li>
+                <form class="navbar-form navbar-left ng-pristine ng-valid" role="search">
+                    <div class="form-group">
+                        <input ng-model="vs.query" type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Search">
+                    </div>
+                </form>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                       Sort by: <b>{{vs.sort || 'votes'}}</b> <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#" ng-click="vs.sort = 'votes'">Votes</a>
+                        </li>
+                        <li>
+                            <a href="#" ng-click="vs.sort = 'date'">Date</a>
+                        </li>
+                        <li>
+                            <a href="#" ng-click="vs.sort = 'title'">Title</a>
+                        </li>
+                        <li>
+                            <a href="#" ng-click="vs.sort = 'favorite'">Favorite</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li>
+                  <a href="#" ng-click="vs.order = reverse">
+                    <i ng-class="{'header-active': !vs.order}" class="fa fa-lg fa-chevron-down header-active"></i>
+                  </a>
+                </li>
+
+                <li>
+                    <a href="#" ng-click="vs.order = !reverse">
+                      <i ng-class="{'header-active': vs.order}" class="fa fa-lg fa-chevron-up"></i>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="#" ng-click="vs.favorites = !vs.favorites">
+                      <i ng-show="vs.favorites" class="fa fa-lg fa-diamond header-favorite"></i>
+                      <i ng-show="!vs.favorites" class="fa fa-lg fa-diamond-o"></i>
+                    </a>
+                </li>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container header-submitPost" ng-show="vs.TogglePostForm">
+    <h3>Add A New Movie</h3>
+
+    <form name="form" novalidate ng-submit="form.$valid && newPost()">
+        <div class="form-group" ng-class="{'has-error': form.title.$invalid && form.title.$touched}">
+            <input ng-model="post.title"
+                   placeholder="Movie Title"
+                   name="title"
+                   type="text"
+                   class="form-control"
+                   minlength="1"
+                   maxlength="100"
+                   required>
+            <span ng-show="form.title.$invalid && form.title.$touched">Title is invalid.</span>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-xs btn-primary" type="submit" name="button">Save Movie</button>
+        </div>
+    </form>
+
+</div>
