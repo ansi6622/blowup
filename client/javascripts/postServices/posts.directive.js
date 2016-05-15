@@ -14,11 +14,14 @@
     }
   }
 
-  controller.$inject = ['$http', 'postsService'];
+  controller.$inject = ['$http', 'postsService', '$scope'];
 
-  function controller($http, postsService) {
+  function controller($http, postsService, $scope) {
     var vm = this;
     vm.addPost = addPost;
+    vm.vote = vote;
+    $scope.frm = {}
+    $scope.frm.url = 'https://robohash.org/ois345djgd23345554';
     activate();
 
     var config = {
@@ -28,16 +31,21 @@
     }
 
     function activate() {
-      postsService.list().then(function(posts) {
-        vm.posts = posts;
+      postsService.list().then(function(response) {
+        vm.posts = response;
       })
     }
 
+    function vote (num, post_id) {
+      postsService.vote({num: num, post_id: post_id })
+    }
+    
     function addPost () {
-      postsService.add(vm.post.title).then(function() {
-        vm.post = {};
+      postsService.add($scope.frm).then(function(dats) {
+        console.log(dats);
+        $scope.frm = {};
+        $state.go('home')
       })
     }
   }
-
 }());

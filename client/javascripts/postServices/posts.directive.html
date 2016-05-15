@@ -4,10 +4,35 @@
 Put POsts Tiltles here
 
 <ul ng-repeat="post in vm.posts">
-  <li>{{post.name}}
+  <li>{{post.name}}</li>
 </ul>
 
-<form ng-submit="vm.addPost()">
-  <input type="text" ng-model="vm.post.name">
-  <input type="submit">
+<form ng-model='frm.form' name='form' ng-submit='vm.addPost()' novalidate>
+    <legend>Create a Post</legend>
+    <div class="">
+      <label >Title</label>
+      <div class="">
+        <input type="text" class="form-control" ng-model='frm.title' name='title' placeholder="Title" required>
+        <small ng-show='form.title.$invalid && form.title.$dirty'>* is required</small>
+      </div>
+    </div>
+    <div class="">
+      <label>Add Photo</label>
+      <div class="">
+        <input type="url" class="form-control" ng-model='frm.url' name='url' placeholder="add img url" required>
+        <small ng-show='form.url.$invalid && form.url.$dirty'>* is required</small>
+      </div>
+    </div>
+    <div class="">
+      <label for="textArea" class="col-lg-2 control-label">Content</label>
+      <div class="">
+      </div>
+    </div>
+
+    <div class="">
+      <div class="">
+        <a ui-sref='home'><button type="reset" class="btn btn-default">Cancel</button></a>
+        <button type="submit" class="btn btn-primary" ng-disabled='form.$invalid'>Submit</button>
+      </div>
+    </div>
 </form>
